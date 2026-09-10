@@ -1,0 +1,1601 @@
+/* =========================================================
+   Emy Sweet — Stylesheet
+   نظام تصميم بسيط: ألوان + مسافات + زوايا موحّدة
+========================================================= */
+
+
+/* =========================
+   Reset
+========================= */
+
+*,
+*::before,
+*::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+}
+
+img,
+svg {
+    display: block;
+    max-width: 100%;
+}
+
+button,
+input,
+textarea {
+    font: inherit;
+    color: inherit;
+}
+
+button {
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+
+
+/* =========================
+   Design tokens
+========================= */
+
+:root {
+    /* الألوان */
+    --primary: #a85739;
+    --primary-dark: #8c4429;
+    --primary-soft: #f7e5dc;
+    --primary-tint: #fdf3ee;
+
+    --ink: #4a2e24;
+    --text: #6b4f45;
+    --muted: #826c63;
+
+    --surface: #ffffff;
+    --bg: #fdf8f5;
+    --line: #f0dfd6;
+
+    --green: #15803d;
+    --green-dark: #11652f;
+    --danger: #b34a3f;
+    --danger-soft: #fbeae7;
+
+    /* الزوايا */
+    --r-sm: 10px;
+    --r-md: 14px;
+    --r-lg: 20px;
+    --r-xl: 26px;
+
+    /* الظلال */
+    --shadow-sm: 0 2px 8px rgba(74, 46, 36, 0.06);
+    --shadow-md: 0 8px 24px rgba(74, 46, 36, 0.08);
+    --shadow-lg: 0 20px 50px rgba(74, 46, 36, 0.16);
+
+    /* القياسات */
+    --header-h: 68px;
+    --container: 1080px;
+}
+
+
+/* =========================
+   Base
+========================= */
+
+body {
+    font-family: "Cairo", "Segoe UI", Tahoma, Arial, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.75;
+    min-height: 100svh;
+    overflow-x: hidden;
+}
+
+body.no-scroll {
+    overflow: hidden;
+}
+
+h1, h2, h3 {
+    color: var(--ink);
+    line-height: 1.35;
+    font-weight: 800;
+}
+
+::selection {
+    background: var(--primary-soft);
+    color: var(--ink);
+}
+
+:focus-visible {
+    outline: 3px solid var(--primary);
+    outline-offset: 2px;
+    border-radius: 6px;
+}
+
+.skip-link {
+    position: absolute;
+    top: -100px;
+    inset-inline-start: 16px;
+    z-index: 100;
+    background: var(--primary);
+    color: #fff;
+    padding: 10px 18px;
+    border-radius: 0 0 var(--r-sm) var(--r-sm);
+    text-decoration: none;
+    font-weight: 700;
+    transition: top 0.2s ease;
+}
+
+.skip-link:focus-visible {
+    top: 0;
+}
+
+
+/* =========================
+   Buttons
+========================= */
+
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 12px 22px;
+    border-radius: var(--r-md);
+    font-size: 15px;
+    font-weight: 700;
+    text-decoration: none;
+    cursor: pointer;
+    min-width: 0;
+    text-align: center;
+    text-wrap: balance;
+    transition: background-color 0.2s ease, transform 0.15s ease,
+                box-shadow 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+}
+
+.btn:active {
+    transform: scale(0.98);
+}
+
+.btn-primary {
+    background: var(--primary);
+    color: #fff;
+    box-shadow: 0 4px 14px rgba(185, 101, 69, 0.24);
+}
+
+.btn-primary:hover {
+    background: var(--primary-dark);
+    box-shadow: 0 6px 18px rgba(185, 101, 69, 0.3);
+}
+
+.btn-ghost {
+    background: var(--surface);
+    color: var(--primary);
+    border: 1.5px solid var(--line);
+}
+
+.btn-ghost:hover {
+    border-color: var(--primary);
+    background: var(--primary-tint);
+}
+
+.btn-whatsapp {
+    background: var(--green);
+    color: #fff;
+    box-shadow: 0 4px 14px rgba(21, 128, 61, 0.22);
+}
+
+.btn-whatsapp:hover {
+    background: var(--green-dark);
+}
+
+.btn[disabled] {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
+}
+
+
+/* =========================
+   Header
+========================= */
+
+.site-header {
+    position: sticky;
+    top: 0;
+    z-index: 60;
+    background: rgba(253, 248, 245, 0.85);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid transparent;
+    transition: border-color 0.25s ease, box-shadow 0.25s ease;
+}
+
+.site-header.is-stuck {
+    border-bottom-color: var(--line);
+    box-shadow: var(--shadow-sm);
+}
+
+.header-inner {
+    width: min(var(--container), 100%);
+    margin-inline: auto;
+    min-height: var(--header-h);
+    padding: 0 18px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+    flex-shrink: 0;
+}
+
+.brand-logo {
+    width: 40px;
+    height: 40px;
+    object-fit: contain;
+}
+
+.brand-name {
+    font-size: 19px;
+    font-weight: 800;
+    color: var(--primary);
+    letter-spacing: 0.2px;
+}
+
+.header-nav {
+    display: flex;
+    gap: 6px;
+    margin-inline-start: auto;
+}
+
+.header-nav a {
+    padding: 8px 14px;
+    border-radius: var(--r-sm);
+    color: var(--text);
+    text-decoration: none;
+    font-size: 15px;
+    font-weight: 600;
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.header-nav a:hover {
+    background: var(--primary-soft);
+    color: var(--primary);
+}
+
+
+/* زر السلة في الهيدر */
+
+.cart-button {
+    position: relative;
+    width: 44px;
+    height: 44px;
+    display: grid;
+    place-items: center;
+    border-radius: 50%;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    color: var(--primary);
+    flex-shrink: 0;
+    transition: background-color 0.2s ease, transform 0.15s ease;
+}
+
+.cart-button:hover {
+    background: var(--primary-tint);
+}
+
+.cart-button svg {
+    width: 22px;
+    height: 22px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.8;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+.cart-button circle {
+    fill: currentColor;
+    stroke: none;
+}
+
+.cart-badge {
+    position: absolute;
+    top: -4px;
+    inset-inline-end: -4px;
+    min-width: 21px;
+    height: 21px;
+    padding: 0 5px;
+    display: grid;
+    place-items: center;
+    border-radius: 999px;
+    background: var(--primary);
+    border: 2px solid var(--bg);
+    color: #fff;
+    font-size: 11px;
+    font-weight: 700;
+    line-height: 1;
+    transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.cart-badge[data-empty="true"] {
+    display: none;
+}
+
+.cart-badge.pop {
+    transform: scale(1.35);
+}
+
+
+/* =========================
+   Hero
+========================= */
+
+.hero {
+    padding: 46px 18px 34px;
+    text-align: center;
+    background:
+        radial-gradient(60% 90% at 50% 0%, #fdf1ea 0%, transparent 70%),
+        var(--bg);
+}
+
+.hero-inner {
+    width: min(720px, 100%);
+    margin-inline: auto;
+}
+
+.hero-logo {
+    width: 120px;
+    height: 120px;
+    object-fit: contain;
+    margin-inline: auto;
+    margin-bottom: 18px;
+}
+
+.hero h1 {
+    font-size: clamp(28px, 6vw, 42px);
+    margin-bottom: 12px;
+}
+
+.hero > .hero-inner > p {
+    font-size: clamp(15px, 3.4vw, 18px);
+    color: var(--muted);
+    margin-bottom: 26px;
+}
+
+.hero-actions {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-bottom: 28px;
+}
+
+.hero-badges {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    list-style: none;
+}
+
+.hero-badges li {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    padding: 7px 16px;
+    font-size: 13.5px;
+    font-weight: 600;
+    color: var(--text);
+    box-shadow: var(--shadow-sm);
+}
+
+
+/* =========================
+   Sections
+========================= */
+
+.section {
+    width: min(var(--container), 100%);
+    margin-inline: auto;
+    padding: 44px 18px;
+}
+
+.section-head {
+    text-align: center;
+    margin-bottom: 32px;
+}
+
+.eyebrow {
+    display: inline-block;
+    color: var(--primary);
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    margin-bottom: 6px;
+}
+
+.section-head h2 {
+    font-size: clamp(24px, 5vw, 32px);
+    margin-bottom: 6px;
+}
+
+.section-head p {
+    color: var(--muted);
+    font-size: 15px;
+}
+
+
+/* =========================
+   Products
+========================= */
+
+.products {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 22px;
+}
+
+.product {
+    container-type: inline-size;
+    container-name: card;
+    display: flex;
+    flex-direction: column;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--r-xl);
+    overflow: hidden;
+    box-shadow: var(--shadow-sm);
+    transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+}
+
+@media (hover: hover) {
+    .product:hover {
+        transform: translateY(-5px);
+        box-shadow: var(--shadow-md);
+        border-color: var(--primary-soft);
+    }
+
+    .product:hover .product-media img {
+        transform: scale(1.05);
+    }
+}
+
+.product-media {
+    position: relative;
+    aspect-ratio: 4 / 3;
+    overflow: hidden;
+    background: var(--primary-tint);
+}
+
+.product-media img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.product-body {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    padding: 18px;
+}
+
+.product-body h3 {
+    font-size: 18px;
+    margin-bottom: 4px;
+}
+
+.product-desc {
+    color: var(--muted);
+    font-size: 14px;
+    line-height: 1.6;
+    margin-bottom: 14px;
+}
+
+.product-price {
+    display: flex;
+    align-items: baseline;
+    gap: 5px;
+    margin-top: auto;
+    margin-bottom: 16px;
+}
+
+.price-value {
+    font-size: 26px;
+    font-weight: 800;
+    color: var(--primary);
+    line-height: 1;
+}
+
+.price-currency {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--muted);
+}
+
+.product-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.product-actions .stepper {
+    align-self: center;
+}
+
+.product-actions .add-btn {
+    width: 100%;
+    padding: 12px 10px;
+}
+
+/* البطاقة ضيقة جدًا: تصغير الحشو والخطوط */
+@container card (max-width: 200px) {
+
+    .product-body {
+        padding: 14px;
+    }
+
+    .product-body h3 {
+        font-size: 16px;
+    }
+
+    .product-desc {
+        font-size: 13px;
+    }
+
+    .price-value {
+        font-size: 22px;
+    }
+
+    .stepper-btn {
+        width: 30px;
+        height: 30px;
+    }
+}
+
+
+/* عدّاد الكمية */
+
+.stepper {
+    display: flex;
+    align-items: center;
+    gap: 2px;
+    background: var(--primary-tint);
+    border: 1px solid var(--line);
+    border-radius: var(--r-md);
+    padding: 3px;
+    flex: 0 0 auto;
+}
+
+.stepper-btn {
+    width: 34px;
+    height: 34px;
+    display: grid;
+    place-items: center;
+    border-radius: var(--r-sm);
+    color: var(--primary);
+    font-size: 19px;
+    font-weight: 700;
+    line-height: 1;
+    transition: background-color 0.18s ease, color 0.18s ease, opacity 0.18s ease;
+}
+
+.stepper-btn:hover:not([disabled]) {
+    background: var(--primary);
+    color: #fff;
+}
+
+.stepper-btn[disabled] {
+    opacity: 0.35;
+    cursor: not-allowed;
+}
+
+.stepper-value {
+    min-width: 30px;
+    text-align: center;
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--ink);
+    font-variant-numeric: tabular-nums;
+}
+
+
+/* بطاقة "قريبًا" */
+
+.product-soon {
+    border-style: dashed;
+    box-shadow: none;
+    background: var(--primary-tint);
+}
+
+.product-soon .product-media {
+    display: grid;
+    place-items: center;
+    background: var(--primary-soft);
+}
+
+.soon-placeholder {
+    width: 56px;
+    height: 56px;
+    fill: none;
+    stroke: var(--primary);
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    opacity: 0.45;
+}
+
+.soon-tag {
+    position: absolute;
+    top: 12px;
+    inset-inline-start: 12px;
+    background: var(--surface);
+    color: var(--primary);
+    border-radius: 999px;
+    padding: 4px 12px;
+    font-size: 12px;
+    font-weight: 700;
+    box-shadow: var(--shadow-sm);
+}
+
+.product-soon .btn {
+    margin-top: auto;
+    width: 100%;
+}
+
+
+/* =========================
+   About
+========================= */
+
+.about-card {
+    background: linear-gradient(140deg, #fffaf7, #f8e6dc);
+    border: 1px solid var(--line);
+    border-radius: var(--r-xl);
+    padding: clamp(28px, 6vw, 48px);
+    text-align: center;
+}
+
+.about-card h2 {
+    font-size: clamp(22px, 4.5vw, 28px);
+    margin-bottom: 16px;
+}
+
+.about-card p {
+    max-width: 640px;
+    margin-inline: auto;
+    color: var(--text);
+    font-size: 15.5px;
+    line-height: 1.95;
+}
+
+.about-card p + p {
+    margin-top: 10px;
+}
+
+
+/* =========================
+   Footer
+========================= */
+
+.site-footer {
+    text-align: center;
+    padding: 44px 18px calc(44px + env(safe-area-inset-bottom));
+    background: var(--surface);
+    border-top: 1px solid var(--line);
+}
+
+.footer-logo {
+    width: 62px;
+    height: 62px;
+    object-fit: contain;
+    margin-inline: auto;
+    margin-bottom: 10px;
+}
+
+.footer-name {
+    font-size: 20px;
+    font-weight: 800;
+    color: var(--primary);
+}
+
+.footer-tag {
+    color: var(--muted);
+    font-size: 14px;
+    margin-bottom: 20px;
+}
+
+.footer-whatsapp {
+    margin-bottom: 24px;
+}
+
+.footer-copy {
+    color: var(--muted);
+    font-size: 12.5px;
+}
+
+
+/* =========================
+   WhatsApp FAB
+========================= */
+
+.whatsapp-fab {
+    position: fixed;
+    bottom: calc(20px + env(safe-area-inset-bottom));
+    inset-inline-start: 20px;
+    width: 54px;
+    height: 54px;
+    display: grid;
+    place-items: center;
+    border-radius: 50%;
+    background: var(--green);
+    color: #fff;
+    box-shadow: 0 8px 24px rgba(21, 128, 61, 0.3);
+    z-index: 55;
+    transition: transform 0.2s ease, background-color 0.2s ease;
+}
+
+.whatsapp-fab:hover {
+    background: var(--green-dark);
+    transform: scale(1.07);
+}
+
+.whatsapp-fab svg {
+    width: 27px;
+    height: 27px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.7;
+    stroke-linejoin: round;
+}
+
+
+/* =========================
+   Cart — overlay + panel
+========================= */
+
+.cart-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(58, 34, 26, 0.45);
+    backdrop-filter: blur(3px);
+    -webkit-backdrop-filter: blur(3px);
+    opacity: 0;
+    z-index: 90;
+    transition: opacity 0.3s ease;
+}
+
+.cart-overlay.show {
+    opacity: 1;
+}
+
+.cart-panel {
+    position: fixed;
+    top: 0;
+    inset-inline-end: 0;
+    height: 100svh;
+    width: min(440px, 100%);
+    display: flex;
+    flex-direction: column;
+    background: var(--bg);
+    box-shadow: var(--shadow-lg);
+    z-index: 95;
+    transform: translateX(-100%); /* RTL: خارج الشاشة يمينًا */
+    visibility: hidden;
+    transition: transform 0.35s cubic-bezier(0.32, 0.72, 0, 1), visibility 0.35s;
+}
+
+.cart-panel.show {
+    transform: translateX(0);
+    visibility: visible;
+}
+
+.cart-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 18px 20px;
+    background: var(--surface);
+    border-bottom: 1px solid var(--line);
+    flex-shrink: 0;
+}
+
+.cart-head h2 {
+    font-size: 20px;
+}
+
+.cart-head small {
+    display: block;
+    color: var(--muted);
+    font-size: 12.5px;
+}
+
+.cart-close {
+    width: 38px;
+    height: 38px;
+    display: grid;
+    place-items: center;
+    border-radius: 50%;
+    background: var(--primary-tint);
+    color: var(--ink);
+    flex-shrink: 0;
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.cart-close:hover {
+    background: var(--primary);
+    color: #fff;
+}
+
+.cart-close svg {
+    width: 18px;
+    height: 18px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 2;
+    stroke-linecap: round;
+}
+
+.cart-body {
+    flex: 1;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    -webkit-overflow-scrolling: touch;
+    padding: 18px 20px calc(24px + env(safe-area-inset-bottom));
+}
+
+
+/* عناصر السلة */
+
+.cart-items {
+    display: grid;
+    gap: 12px;
+}
+
+.cart-items:empty {
+    display: none;
+}
+
+.cart-item {
+    display: flex;
+    gap: 12px;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--r-lg);
+    padding: 12px;
+    animation: item-in 0.3s ease both;
+}
+
+@keyframes item-in {
+    from { opacity: 0; transform: translateY(8px); }
+    to   { opacity: 1; transform: none; }
+}
+
+.cart-item.removing {
+    opacity: 0;
+    transform: translateX(20px);
+    transition: opacity 0.22s ease, transform 0.22s ease;
+}
+
+.cart-item-thumb {
+    width: 68px;
+    height: 68px;
+    flex-shrink: 0;
+    border-radius: var(--r-md);
+    object-fit: cover;
+    background: var(--primary-tint);
+}
+
+.cart-item-main {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.cart-item-top {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 8px;
+}
+
+.cart-item-name {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--ink);
+    line-height: 1.4;
+}
+
+.cart-item-unit {
+    display: block;
+    color: var(--muted);
+    font-size: 12.5px;
+    font-weight: 500;
+}
+
+.cart-item-remove {
+    width: 30px;
+    height: 30px;
+    flex-shrink: 0;
+    display: grid;
+    place-items: center;
+    border-radius: 50%;
+    background: var(--danger-soft);
+    color: var(--danger);
+    font-size: 16px;
+    line-height: 1;
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.cart-item-remove:hover {
+    background: var(--danger);
+    color: #fff;
+}
+
+.cart-item-bottom {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+}
+
+.cart-item-bottom .stepper {
+    padding: 2px;
+}
+
+.cart-item-bottom .stepper-btn {
+    width: 28px;
+    height: 28px;
+    font-size: 16px;
+}
+
+.cart-item-bottom .stepper-value {
+    min-width: 26px;
+    font-size: 14px;
+}
+
+.cart-item-total {
+    font-size: 16px;
+    font-weight: 800;
+    color: var(--primary);
+    white-space: nowrap;
+}
+
+
+/* السلة الفارغة */
+
+.cart-empty {
+    text-align: center;
+    padding: 48px 16px;
+}
+
+.cart-empty-icon {
+    width: 56px;
+    height: 56px;
+    margin: 0 auto 12px;
+    fill: none;
+    stroke: var(--primary);
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    opacity: 0.55;
+}
+
+.cart-empty-title {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--ink);
+}
+
+.cart-empty-text {
+    color: var(--muted);
+    font-size: 14px;
+    margin-bottom: 18px;
+}
+
+
+/* ملخص الطلب */
+
+.summary {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--r-lg);
+    padding: 16px;
+    margin-top: 18px;
+}
+
+.summary-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    font-size: 14px;
+    padding: 6px 0;
+}
+
+.summary-row strong {
+    color: var(--ink);
+    font-weight: 700;
+}
+
+.summary-row .muted {
+    color: var(--muted);
+    font-weight: 600;
+}
+
+.summary-total {
+    padding-bottom: 12px;
+    margin-bottom: 6px;
+    border-bottom: 1px solid var(--line);
+    font-size: 15px;
+}
+
+.summary-total span:first-child {
+    font-weight: 700;
+    color: var(--ink);
+}
+
+.summary-total strong {
+    font-size: 21px;
+    color: var(--primary);
+}
+
+.summary-note {
+    color: var(--muted);
+    font-size: 12px;
+    line-height: 1.7;
+    margin-top: 8px;
+    padding-top: 10px;
+    border-top: 1px dashed var(--line);
+}
+
+
+/* نموذج بيانات العميل */
+
+.customer-form {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--r-lg);
+    padding: 18px;
+    margin-top: 14px;
+}
+
+.customer-form h3 {
+    font-size: 17px;
+    padding-bottom: 12px;
+    margin-bottom: 16px;
+    border-bottom: 1px solid var(--line);
+}
+
+.field {
+    margin-bottom: 14px;
+}
+
+.field label {
+    display: block;
+    margin-bottom: 6px;
+    font-size: 13.5px;
+    font-weight: 700;
+    color: var(--ink);
+}
+
+.field label span {
+    color: var(--danger);
+}
+
+.field label small {
+    color: var(--muted);
+    font-weight: 500;
+    font-size: 12px;
+}
+
+.field input,
+.field textarea {
+    width: 100%;
+    background: #fffdfc;
+    border: 1.5px solid var(--line);
+    border-radius: var(--r-md);
+    padding: 11px 14px;
+    font-size: 15px;
+    color: var(--ink);
+    outline: none;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+}
+
+.field input {
+    height: 46px;
+}
+
+.field textarea {
+    resize: vertical;
+    min-height: 76px;
+    line-height: 1.6;
+}
+
+.field input::placeholder,
+.field textarea::placeholder {
+    color: #c3b2ab;
+}
+
+.field input:focus,
+.field textarea:focus {
+    border-color: var(--primary);
+    background: var(--surface);
+    box-shadow: 0 0 0 3px rgba(185, 101, 69, 0.12);
+}
+
+.field.has-error input,
+.field.has-error textarea {
+    border-color: var(--danger);
+    background: var(--danger-soft);
+}
+
+.field-error {
+    display: block;
+    margin-top: 5px;
+    color: var(--danger);
+    font-size: 12.5px;
+    font-weight: 600;
+}
+
+.checkout-btn {
+    width: 100%;
+    padding: 15px;
+    font-size: 16px;
+    margin-top: 4px;
+}
+
+.wa-icon {
+    width: 20px;
+    height: 20px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.7;
+    stroke-linejoin: round;
+}
+
+.checkout-hint {
+    text-align: center;
+    color: var(--muted);
+    font-size: 12px;
+    margin-top: 10px;
+}
+
+
+/* =========================
+   Toast
+========================= */
+
+.toast {
+    position: fixed;
+    bottom: calc(24px + env(safe-area-inset-bottom));
+    inset-inline-start: 50%;
+    width: max-content;
+    max-width: min(360px, calc(100vw - 32px));
+    background: var(--ink);
+    color: #fff;
+    padding: 12px 20px;
+    border-radius: var(--r-md);
+    font-size: 14px;
+    font-weight: 600;
+    text-align: center;
+    line-height: 1.6;
+    box-shadow: var(--shadow-lg);
+    z-index: 120;
+    opacity: 0;
+    visibility: hidden;
+    transform: translate(50%, 14px);
+    transition: opacity 0.25s ease, transform 0.25s ease, visibility 0.25s;
+}
+
+.toast.show {
+    opacity: 1;
+    visibility: visible;
+    transform: translate(50%, 0);
+}
+
+.toast.error {
+    background: var(--danger);
+}
+
+
+/* =========================
+   Responsive
+   الأساس سائل (clamp + container queries)،
+   والـ breakpoints دي للتغييرات الهيكلية بس.
+========================= */
+
+
+/* ---- شاشات عريضة جدًا ---- */
+
+@media (min-width: 1400px) {
+
+    :root {
+        --container: 1200px;
+    }
+}
+
+
+/* ---- تابلت ---- */
+
+@media (max-width: 900px) {
+
+    .header-nav a {
+        padding: 8px 10px;
+        font-size: 14px;
+    }
+
+    .section {
+        padding: 38px 18px;
+    }
+
+    .products {
+        gap: 18px;
+    }
+}
+
+
+/* ---- موبايل ---- */
+
+@media (max-width: 720px) {
+
+    :root {
+        --header-h: 60px;
+    }
+
+    /* الهيدر: اللوجو يمين، السلة شمال، الروابط تختفي */
+    .header-inner {
+        padding: 0 14px;
+        gap: 10px;
+    }
+
+    .header-nav {
+        display: none;
+    }
+
+    .cart-button {
+        margin-inline-start: auto;
+        width: 42px;
+        height: 42px;
+    }
+
+    .brand-logo {
+        width: 34px;
+        height: 34px;
+    }
+
+    .brand-name {
+        font-size: 17px;
+    }
+
+    .hero {
+        padding: 28px 16px 24px;
+    }
+
+    .hero-logo {
+        width: 96px;
+        height: 96px;
+        margin-bottom: 14px;
+    }
+
+    .hero-actions {
+        gap: 10px;
+        margin-bottom: 22px;
+    }
+
+    .hero-actions .btn {
+        flex: 1 1 140px;
+    }
+
+    .hero-badges li {
+        font-size: 12.5px;
+        padding: 6px 13px;
+    }
+
+    .section {
+        padding: 32px 16px;
+    }
+
+    .section-head {
+        margin-bottom: 24px;
+    }
+
+    .products {
+        grid-template-columns: repeat(auto-fill, minmax(min(100%, 200px), 1fr));
+        gap: 14px;
+    }
+
+    /* لوحة السلة تبقى ورقة سفلية */
+    .cart-panel {
+        top: auto;
+        bottom: 0;
+        inset-inline: 0;
+        width: 100%;
+        height: auto;
+        max-height: 90svh;
+        border-radius: var(--r-xl) var(--r-xl) 0 0;
+        transform: translateY(100%);
+    }
+
+    .cart-panel.show {
+        transform: translateY(0);
+    }
+
+    .cart-head {
+        border-radius: var(--r-xl) var(--r-xl) 0 0;
+        padding: 16px;
+    }
+
+    .cart-body {
+        padding: 14px 14px calc(20px + env(safe-area-inset-bottom));
+    }
+
+    .customer-form,
+    .summary {
+        padding: 14px;
+    }
+
+    .whatsapp-fab {
+        width: 50px;
+        height: 50px;
+        bottom: calc(16px + env(safe-area-inset-bottom));
+        inset-inline-start: 16px;
+    }
+
+    .toast {
+        bottom: calc(82px + env(safe-area-inset-bottom));
+    }
+
+    .site-footer {
+        padding: 34px 16px calc(34px + env(safe-area-inset-bottom));
+    }
+}
+
+
+/* ---- موبايل صغير ---- */
+
+@media (max-width: 430px) {
+
+    .products {
+        grid-template-columns: 1fr;
+    }
+
+    /* عمود واحد = بطاقة عريضة، فالصورة تبقى أقصر */
+    .product-media {
+        aspect-ratio: 16 / 10;
+    }
+
+    .hero-actions .btn {
+        flex-basis: 100%;
+    }
+
+    .hero-badges {
+        gap: 8px;
+    }
+
+    .cart-item {
+        padding: 10px;
+        gap: 10px;
+    }
+
+    .cart-item-thumb {
+        width: 56px;
+        height: 56px;
+    }
+
+    .cart-item-name {
+        font-size: 14px;
+    }
+
+    .cart-item-total {
+        font-size: 15px;
+    }
+}
+
+
+/* ---- شاشات ضيقة جدًا (320px) ---- */
+
+@media (max-width: 340px) {
+
+    .brand-name {
+        display: none;
+    }
+
+    .cart-item {
+        flex-direction: column;
+    }
+
+    .cart-item-thumb {
+        width: 100%;
+        height: 110px;
+    }
+}
+
+
+/* ---- موبايل بالعرض (ارتفاع قليل) ---- */
+
+@media (max-height: 520px) and (orientation: landscape) {
+
+    .hero {
+        padding: 20px 16px 16px;
+    }
+
+    .hero-logo {
+        width: 64px;
+        height: 64px;
+        margin-bottom: 10px;
+    }
+
+    .hero-badges {
+        display: none;
+    }
+
+    .cart-panel {
+        max-height: 100svh;
+        border-radius: 0;
+    }
+
+    .cart-head {
+        border-radius: 0;
+    }
+}
+
+
+/* ---- الطباعة ---- */
+
+@media print {
+
+    .site-header,
+    .whatsapp-fab,
+    .cart-panel,
+    .cart-overlay,
+    .toast,
+    .product-actions,
+    .hero-actions,
+    .skip-link {
+        display: none !important;
+    }
+
+    body {
+        background: #fff;
+    }
+}
+
+/* Storefront refresh */
+:root { --container: 1180px; }
+
+/* زرار السلة: أيقونة + كلمة "السلة" في سطر واحد */
+.cart-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+    width: auto;
+    height: 42px;
+    padding-inline: 15px;
+    border-radius: 999px;
+}
+
+.cart-label {
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 1;
+    color: var(--ink);
+}
+
+/* الشارة على زرار بيضاوي: فوق جهة الأيقونة */
+.cart-button .cart-badge {
+    top: -5px;
+    inset-inline-end: auto;
+    inset-inline-start: 6px;
+}
+
+.hero { padding: 34px 18px 42px; text-align: start; }
+.hero-inner { width: min(var(--container), 100%); display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(320px, .8fr); align-items: center; gap: clamp(32px, 7vw, 90px); }
+.hero-copy { padding-block: 30px; }
+.hero-kicker { display: inline-flex; margin-bottom: 14px; padding: 7px 13px; border-radius: 999px; background: var(--primary-soft); color: var(--primary-dark); font-size: 13px; font-weight: 800; }
+.hero h1 { font-size: clamp(34px, 5vw, 58px); letter-spacing: -1.5px; margin-bottom: 16px; }
+.hero h1 span { color: var(--primary); }
+.hero > .hero-inner > .hero-copy > p { max-width: 560px; margin-bottom: 24px; }
+.hero-actions, .hero-badges { justify-content: flex-start; }
+.hero-badges li { padding: 9px 14px; }
+.hero-badges strong, .hero-badges span { display: block; }
+.hero-badges strong { color: var(--ink); font-size: 13px; }
+.hero-badges span { color: var(--muted); font-size: 11.5px; font-weight: 600; }
+.hero-visual { padding: 10px; }
+.hero-image-wrap { position: relative; width: min(100%, 420px); aspect-ratio: 5 / 4; margin-inline: auto; padding: 10px; border-radius: 34px; background: #fff; box-shadow: 0 24px 70px rgba(95,51,35,.16); transform: rotate(-2deg); }
+.hero-image { width: 100%; height: 100%; object-fit: cover; border-radius: 26px; }
+.hero-image-label { position: absolute; inset-inline-start: -22px; bottom: 24px; padding: 10px 16px; border-radius: 14px; background: rgba(255,255,255,.94); box-shadow: var(--shadow-md); color: var(--muted); font-size: 11px; }
+.hero-image-label b { display: block; color: var(--ink); font-size: 14px; }
+
+.product-badge { position: absolute; top: 12px; inset-inline-start: 12px; padding: 5px 10px; border-radius: 999px; background: rgba(255,255,255,.92); color: var(--primary-dark); font-size: 11px; font-weight: 800; box-shadow: var(--shadow-sm); }
+.product-badge-hot { background: var(--primary); color: #fff; }
+.mobile-cart-bar { display: none; }
+
+@media (max-width: 900px) {
+    .hero-inner { grid-template-columns: 1fr .72fr; gap: 26px; }
+    .hero h1 { font-size: clamp(32px, 5.8vw, 46px); }
+}
+
+@media (max-width: 720px) {
+    .cart-button { min-width: 42px; width: 42px; padding: 0; }
+    .cart-label { display: none; }
+    .hero { padding: 20px 16px 30px; }
+    .hero-inner { display: flex; flex-direction: column-reverse; gap: 14px; }
+    .hero-copy { padding: 0; text-align: center; }
+    .hero-visual { width: 100%; padding: 0; }
+    .hero-image-wrap { width: 100%; max-width: 390px; aspect-ratio: 16 / 10; transform: none; border-radius: 24px; }
+    .hero-image { border-radius: 18px; object-position: center 46%; }
+    .hero-image-label { inset-inline-start: 20px; bottom: 18px; text-align: start; }
+    .hero-kicker { margin-top: 4px; margin-bottom: 10px; }
+    .hero h1 { font-size: clamp(30px, 9vw, 40px); letter-spacing: -1px; }
+    .hero > .hero-inner > .hero-copy > p { font-size: 15px; margin-inline: auto; }
+    .hero-actions, .hero-badges { justify-content: center; }
+    .whatsapp-fab { bottom: calc(82px + env(safe-area-inset-bottom)); }
+    .toast { bottom: calc(140px + env(safe-area-inset-bottom)); }
+    body.has-cart-items { padding-bottom: calc(76px + env(safe-area-inset-bottom)); }
+    .mobile-cart-bar:not([hidden]) { position: fixed; z-index: 58; inset-inline: 12px; bottom: calc(10px + env(safe-area-inset-bottom)); min-height: 58px; display: grid; grid-template-columns: 1fr auto; grid-template-rows: auto auto; align-items: center; column-gap: 16px; padding: 9px 16px; border-radius: 18px; background: var(--ink); color: #fff; box-shadow: 0 12px 32px rgba(48,28,22,.28); text-align: start; }
+    .mobile-cart-bar > span:nth-child(2) { grid-row: 1 / 3; grid-column: 2; font-weight: 800; }
+    .mobile-cart-count { font-size: 12px; color: #e9d9d2; }
+    .mobile-cart-bar strong { font-size: 13px; }
+}
+
+
+/* =========================
+   مساحات لمس مريحة على الموبايل
+   (الأصابع محتاجة مساحة أكبر من مؤشر الماوس)
+========================= */
+
+@media (pointer: coarse) {
+
+    .stepper-btn {
+        width: 42px;
+        height: 42px;
+    }
+
+    .cart-item-bottom .stepper-btn {
+        width: 40px;
+        height: 40px;
+    }
+
+    .cart-item-remove {
+        width: 40px;
+        height: 40px;
+        font-size: 19px;
+    }
+
+    .cart-close {
+        width: 44px;
+        height: 44px;
+    }
+
+    .cart-button {
+        height: 46px;
+    }
+
+    .header-nav a {
+        padding-block: 12px;
+    }
+}
